@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nouveau mot de passe – Paoo</title><style>
+:root{--bg:#F3EDE4;--card:#FBF8F3;--text:#2B2622;--muted:#86796D;--primary:#C2653E;--sage:#55644A;--line:#E3D9CC}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#1E1B18;--card:#28241F;--text:#F1EAE0;--muted:#B3A595;--primary:#E08A62;--sage:#9DB08C;--line:#3A342D}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:28px 16px 64px}
+header a.brand{font-family:Georgia,serif;font-size:28px;color:var(--text);text-decoration:none;font-weight:600}
+nav{display:flex;flex-wrap:wrap;gap:8px 16px;margin:10px 0 28px;font-size:14px}
+nav a{color:var(--sage);text-decoration:none}nav a:hover{text-decoration:underline}
+h1{font-family:Georgia,serif;font-weight:600;font-size:32px;line-height:1.2;margin:0 0 6px}
+h2{font-family:Georgia,serif;font-weight:600;font-size:21px;margin:34px 0 8px}
+.updated{color:var(--muted);font-size:14px;margin:0 0 24px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px 20px;margin:16px 0}
+a{color:var(--primary)}
+ul{padding-left:22px}li{margin:4px 0}
+table{width:100%;border-collapse:collapse;font-size:15px}
+th,td{text-align:left;vertical-align:top;padding:10px 8px;border-bottom:1px solid var(--line)}
+th{color:var(--muted);font-weight:600;font-size:13px}
+.scroll{overflow-x:auto}
+mark{background:#F6E7C6;color:#6B4B10;padding:0 4px;border-radius:4px}
+footer{margin-top:48px;color:var(--muted);font-size:13px}
+</style></head>
+<body><div class="wrap">
+<header><a class="brand" href="index.html">Paoo</a></header>
+<nav><a href="index.html">Accueil</a><a href="confidentialite.html">Confidentialité</a><a href="conditions.html">Conditions d'utilisation</a><a href="mentions-legales.html">Mentions légales</a><a href="support.html">Aide & contact</a></nav>
+
+<style>
+.field{display:block;width:100%;font:inherit;padding:13px 14px;border-radius:14px;border:1px solid var(--line);background:var(--bg);color:var(--text);margin:6px 0 14px}
+.btn{display:block;width:100%;font:inherit;font-weight:600;padding:14px;border:0;border-radius:999px;background:var(--primary);color:#fff;cursor:pointer}
+.btn:disabled{opacity:.6}
+.msg{padding:12px 14px;border-radius:12px;margin:12px 0 0}
+.err{background:#F8DDD3;color:#7A2E14}.ok{background:#DDE8D3;color:#2F4224}
+label{font-weight:600;font-size:15px}
+</style>
+<h1>Nouveau mot de passe</h1>
+<div id="loading" class="card"><p>Vérification du lien…</p></div>
+<div id="bad" class="card" hidden><p><strong>Ce lien n'est plus valable.</strong> Il a peut-être déjà servi, ou il est trop ancien (il ne marche qu'une heure).</p>
+<p>Dans l'application Paoo, touchez à nouveau <em>Mot de passe oublié ?</em> pour recevoir un nouveau lien, puis ouvrez le dernier e-mail reçu.</p></div>
+<form id="form" class="card" hidden>
+<p id="who" class="updated" style="margin:0 0 12px"></p>
+<label for="p1">Nouveau mot de passe (8 caractères minimum)</label>
+<input id="p1" class="field" type="password" autocomplete="new-password" minlength="8" required>
+<label for="p2">Confirmez le mot de passe</label>
+<input id="p2" class="field" type="password" autocomplete="new-password" minlength="8" required>
+<button id="go" class="btn" type="submit">Enregistrer</button>
+<div id="err" class="msg err" hidden></div>
+</form>
+<div id="done" class="card" hidden><p class="msg ok" style="margin:0"><strong>C'est fait !</strong> Votre mot de passe a été changé.</p>
+<p>Retournez dans l'application Paoo et connectez-vous avec votre e-mail et ce nouveau mot de passe.</p></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.4/dist/umd/supabase.js"></script>
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  function show(id) { ['loading', 'bad', 'form', 'done'].forEach(function (k) { $(k).hidden = (k !== id); }); }
+  var hash = new URLSearchParams(location.hash.slice(1));
+  if (hash.get('error') || hash.get('error_code')) { show('bad'); return; }
+  if (!window.supabase) { show('bad'); return; }
+  var sb = window.supabase.createClient('https://ggmzeklugfbrvrqzrnfi.supabase.co', 'sb_publishable_pfktq8dZzNDHa_eSCR7c1A_EsI_iyFQ', {
+    auth: { flowType: 'implicit', detectSessionInUrl: true, persistSession: false, autoRefreshToken: false }
+  });
+  sb.auth.getSession().then(function (r) {
+    var s = r && r.data && r.data.session;
+    if (!s) { show('bad'); return; }
+    history.replaceState(null, '', location.pathname);
+    $('who').textContent = 'Compte : ' + (s.user && s.user.email || '');
+    show('form');
+  }, function () { show('bad'); });
+
+  $('form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var a = $('p1').value, b = $('p2').value, err = $('err');
+    err.hidden = true;
+    if (a.length < 8) { err.textContent = 'Le mot de passe doit faire au moins 8 caractères.'; err.hidden = false; return; }
+    if (a !== b) { err.textContent = 'Les deux mots de passe ne sont pas identiques.'; err.hidden = false; return; }
+    $('go').disabled = true; $('go').textContent = 'Enregistrement…';
+    sb.auth.updateUser({ password: a }).then(function (r) {
+      if (r.error) {
+        var m = String(r.error.message || '');
+        err.textContent = /different from the old|same/i.test(m) ? 'Choisissez un mot de passe différent de l\'ancien.'
+          : /weak|should be/i.test(m) ? 'Mot de passe trop faible : 8 caractères minimum.'
+          : 'Le changement n\'a pas fonctionné. Réessayez, ou redemandez un lien depuis l\'application.';
+        err.hidden = false; $('go').disabled = false; $('go').textContent = 'Enregistrer';
+        return;
+      }
+      sb.auth.signOut({ scope: 'local' }).catch(function () {});
+      show('done');
+    });
+  });
+})();
+</script>
+
+<footer>Paoo – Suivi Cosmétique &amp; PAO · Contact : <a href="mailto:contact.paoo@gmail.com">contact.paoo@gmail.com</a></footer>
+</div></body></html>
