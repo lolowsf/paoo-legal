@@ -27,7 +27,7 @@ footer{margin-top:48px;color:var(--muted);font-size:13px}
 <nav><a href="index.html">Accueil</a><a href="confidentialite.html">Confidentialité</a><a href="conditions.html">Conditions d'utilisation</a><a href="mentions-legales.html">Mentions légales</a><a href="support.html">Aide & contact</a></nav>
 
 <h1>Politique de confidentialité</h1>
-<p class="updated">Dernière mise à jour : 23 octobre 2026</p>
+<p class="updated">Dernière mise à jour : 25 octobre 2026</p>
 
 <p>Cette politique explique quelles données l'application Paoo collecte, pourquoi, et quels sont vos droits. Nous collectons le strict nécessaire au fonctionnement de l'application. <strong>Nous ne vendons pas vos données, nous n'affichons pas de publicité et nous n'utilisons aucun outil de pistage publicitaire.</strong></p>
 
@@ -48,14 +48,21 @@ footer{margin-top:48px;color:var(--muted);font-size:13px}
 <p>Les <strong>rappels</strong> sont programmés directement sur votre téléphone : aucune donnée n'est envoyée à un service de notifications pour cela.</p>
 <p>Le <strong>paiement</strong> est entièrement géré par Apple (App Store) ou Google (Google Play). Nous ne recevons jamais vos coordonnées bancaires.</p>
 
-<h2>3. Scan d'étiquette par intelligence artificielle (fonction Premium, à venir)</h2>
-<p>Lorsque cette fonction sera disponible, et uniquement si vous l'utilisez, la photo de l'étiquette sera envoyée à un service d'analyse d'image (Google Gemini, via une offre payante qui n'utilise pas vos données pour entraîner ses modèles) afin de pré-remplir la fiche du produit. La photo sert uniquement à cette analyse. Cette section sera mise à jour à l'ouverture de la fonction.</p>
+<h2>3. Scan du produit par intelligence artificielle (fonction Premium)</h2>
+<p>Uniquement si vous utilisez la fonction <em>Scanner le produit</em> :</p>
+<ul>
+<li>les deux photos que vous prenez (l'avant et, si vous le souhaitez, le dos du produit) sont réduites puis envoyées, via notre serveur, au service d'analyse d'image <strong>Google Gemini</strong>, dans le cadre de son offre payante ;</li>
+<li>elles servent uniquement à lire le nom, la marque, le type de produit, la durée après ouverture (PAO) ou la date de péremption, afin de pré-remplir la fiche, que vous vérifiez et pouvez modifier avant d'enregistrer ;</li>
+<li>Google n'utilise pas ces photos pour entraîner ses modèles ; il peut les conserver pendant une durée limitée uniquement pour détecter les abus. Nous ne conservons pas la photo du dos ; la photo de l'avant devient la photo du produit seulement si vous enregistrez la fiche ;</li>
+<li>nous enregistrons le <strong>nombre de scans</strong> effectués chaque jour, pour appliquer la limite d'utilisation (30 scans par jour).</li>
+</ul>
 
 <h2>4. Où sont stockées vos données</h2>
 <p>Vos données sont hébergées par <strong>Supabase</strong> sur des serveurs situés dans l'Union européenne (Irlande). Les sous-traitants qui peuvent intervenir :</p>
 <ul>
 <li><strong>Supabase Inc.</strong> : hébergement du compte, de la base de données et des photos (serveurs UE).</li>
 <li><strong>Apple</strong> et <strong>Google</strong> : distribution de l'application et paiement des abonnements, selon leurs propres politiques.</li>
+<li><strong>Google</strong> (Gemini) : analyse des photos lorsque vous utilisez le scan du produit (voir section 3).</li>
 <li><strong>RevenueCat</strong> (à venir) : vérification du statut d'abonnement à partir d'un identifiant technique, sans vos coordonnées bancaires.</li>
 </ul>
 <p>Si un sous-traitant traite des données hors de l'Union européenne, ce transfert est encadré par les garanties prévues par le RGPD (clauses contractuelles types de la Commission européenne ou décision d'adéquation).</p>
@@ -70,7 +77,7 @@ footer{margin-top:48px;color:var(--muted);font-size:13px}
 <h2>6. Vos droits</h2>
 <p>Conformément au RGPD, vous pouvez à tout moment accéder à vos données, les rectifier, les effacer, en demander une copie (portabilité), vous opposer à un traitement ou en demander la limitation.</p>
 <ul>
-<li><strong>Supprimer votre compte</strong> : directement dans l'application, onglet <em>Compte</em> → <em>Supprimer mon compte</em>.</li>
+<li><strong>Supprimer votre compte</strong> : directement dans l'application, onglet <em>Compte</em> → <em>Supprimer mon compte</em>, ou sur notre page <a href="supprimer-compte.html">Supprimer mon compte</a> (sans l'application).</li>
 <li><strong>Toute autre demande</strong> : écrivez à <a href="mailto:contact.paoo@gmail.com">contact.paoo@gmail.com</a>. Nous répondons sous 30 jours au maximum.</li>
 </ul>
 <p>Si vous estimez que vos droits ne sont pas respectés, vous pouvez adresser une réclamation à la CNIL (<a href="https://www.cnil.fr">www.cnil.fr</a>).</p>
